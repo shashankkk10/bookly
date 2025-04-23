@@ -4,7 +4,9 @@ import uuid
 from datetime import datetime, date
 from typing import List, Optional
 
-
+class BookTag(SQLModel, table=True):
+    book_id: uuid.UUID = Field(default=None, foreign_key="books.uid", primary_key=True)
+    tag_id: uuid.UUID = Field(default=None, foreign_key="tags.uid", primary_key=True)
 
 class User(SQLModel, table=True):
     __tablename__ = "user"
@@ -83,9 +85,7 @@ class Review(SQLModel, table=True):
     def __repr__(self):
         return f"<Review for book {self.book_uid} by user {self.user_uid}>"
     
-class BookTag(SQLModel, table=True):
-    book_id: uuid.UUID = Field(default=None, foreign_key="books.uid", primary_key=True)
-    tag_id: uuid.UUID = Field(default=None, foreign_key="tags.uid", primary_key=True)
+
 
 class Tag(SQLModel, table=True):
     __tablename__ = "tags"
